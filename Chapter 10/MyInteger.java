@@ -1,9 +1,9 @@
 
 public class MyInteger {
 	
-	private int value = 0;
+	private static int value = 0;
 	
-	public static int MyInteger(int newValue) {
+	MyInteger(int newValue) {
 		value = newValue;
 	}
 	public int getValue() {
@@ -20,7 +20,17 @@ public class MyInteger {
 		}
 	}
 	public boolean isPrime() {
-		
+		boolean prime = true;
+		int i = 2;
+		while (i <= value / 2) {
+			if (value % i != 0) {
+				i++;
+			}
+			else {
+				prime = false;
+			}
+		}
+		return prime;
 	}
 	public static boolean isEven(int value) {
 		if (value % 2 == 0) {
@@ -33,32 +43,61 @@ public class MyInteger {
 		}
 	}
 	public static boolean isPrime(int value) {
-		
+		boolean prime = true;
+		int i = 2;
+		while (i <= value / 2) {
+			if (value % i != 0) {
+				i++;
+			}
+			else {
+				prime = false;
+			}
+		}
+		return prime;
 	}
-	public static boolean isEven(MyInteger value) {
+	public static boolean isEven(MyInteger newValue) {
 		if (value % 2 == 0) {
 			return true;
 		}
 	}
-	public static boolean isOdd(MyInteger value) {
+	public static boolean isOdd(MyInteger newValue) {
 		if (value % 2 != 0) {
 			return true;
 		}
 	}
-	public static boolean isPrime(MyInteger) {
-		
+	public static boolean isPrime(MyInteger newValue) {
+		boolean prime = true;
+		int i = 2;
+		while (i <= value / 2) {
+			if (value % i != 0) {
+				i++;
+			}
+			else {
+				prime = false;
+			}
+		}
+		return prime;
 	}
-	public boolean equals(int) {
-		if ()
+	public boolean equals(int x) {
+		if (x == value) {
+			return true;
+		}
 	}
-	public boolean equals(MyInteger) {
-		
+	public boolean equals(MyInteger x) {
+		if (x == MyInteger) {
+			return true;
+		}
 	}
 	public static int parseInt(char[]) {
-		
+		int i = 0;
+		int x = MyInteger.length;
+		while (i <= MyInteger.length) {
+			
+		}
 	}
 	public static int parseInt(String) {
-		
+		int i = Integer.parseInt(MyInteger);
+		return i;
 	}
 
 	public static void main(String[] args) {
