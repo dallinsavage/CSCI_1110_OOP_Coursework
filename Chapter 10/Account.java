@@ -1,5 +1,6 @@
+  
 /* Dallin Savage
- * 8/5/20
+ * 8/13/20
  */
 
 import java.util.Date;
@@ -65,12 +66,34 @@ class testAccount {
 			if (idSelect > 9) {
 				System.out.println("Enter a valid id"); }
 				else {
+					int select = 0;
+					while (select != 4) {
 					System.out.println("Main menue");
 					System.out.println("Enter a choice");
 					System.out.println("1: check balance");
 					System.out.println("2: withdraw");
 					System.out.println("3: deposit");
 					System.out.println("4: exit");
+					select = input.nextInt();
+					if (select == 1) {
+						System.out.println("Balance: $" + accountArray[idSelect].getBalance());
+					}
+					else if (select == 2) {
+						System.out.println("Enter withdraw amount");
+						double withdraw = input.nextDouble();
+						accountArray[idSelect].setBalance(accountArray[idSelect].withdraw(withdraw));
+						System.out.println("New balance: $" + accountArray[idSelect].getBalance());
+					}
+					else if (select == 3) {
+						System.out.println("Enter deposite amount");
+						double deposit = input.nextDouble();
+						accountArray[idSelect].setBalance(accountArray[idSelect].deposit(deposit));
+						System.out.println("New Balance: $" + accountArray[idSelect].getBalance());
+					}
+					else if (select == 4) {
+						break;
+					}
+					}
 				}
 			}
 		}
