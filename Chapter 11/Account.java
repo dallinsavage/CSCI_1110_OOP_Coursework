@@ -60,10 +60,18 @@ class SavingsAccount extends Account {
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance;
 	}
+	public boolean canWithdraw(double withdraw) {
+		if ((balance - withdraw) >= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
 
 class CheckingAccount extends Account {
-	private double overdraftLimit = 500;
+	private double overdraftLimit = -500;
 	CheckingAccount() {
 	}
 	CheckingAccount(int newId, double newBalance) {
@@ -75,6 +83,14 @@ class CheckingAccount extends Account {
 	}
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance + " Overdraft Limit = " + overdraftLimit;
+	}
+	public boolean canWithdraw(double withdraw) {
+		if ((balance - withdraw) >= overdraftLimit) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 
