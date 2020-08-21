@@ -42,11 +42,11 @@ public class Account {
 	public double getMonthlyInterest() {
 		return getMonthlyInterestRate() * balance;
 	}
-	public double withdraw(double withdraw) {
-		return balance - withdraw;
+	public void withdraw(double withdraw) {
+		balance = balance - withdraw;
 	}
-	public double deposit(double deposit) {
-		return balance + deposit;
+	public void deposit(double deposit) {
+		balance = balance + deposit;
 	}
 }
 
@@ -60,19 +60,18 @@ class SavingsAccount extends Account {
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance;
 	}
-	public double withdraw(double withdraw) {
+	public void withdraw(double withdraw) {
 		if ((balance - withdraw) >= 0) {
-			return balance - withdraw;
+			balance = balance - withdraw;
 		}
 		else {
 			System.out.println("Can't withdraw that much");
-			return balance;
 		}
 	}
 }
 
 class CheckingAccount extends Account {
-	private double overdraftLimit = -500;
+	private double overdraftLimit = 500;
 	CheckingAccount() {
 	}
 	CheckingAccount(int newId, double newBalance) {
@@ -85,13 +84,12 @@ class CheckingAccount extends Account {
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance + " Overdraft Limit = " + overdraftLimit;
 	}
-	public double withdraw(double withdraw) {
-		if ((balance - withdraw) >= overdraftLimit) {
-			return balance - withdraw;
+	public void withdraw(double withdraw) {
+		if (withdraw <= balance + overdraftLimit) {
+			balance = balance - withdraw;
 		}
 		else {
 			System.out.println("Can't withdraw that much");
-			return balance;
 		}
 	}
 }
@@ -100,8 +98,8 @@ class testAccount {
 	public static void main(String[] args) {
 		SavingsAccount savings1 = new SavingsAccount(1212, 1000);
 		CheckingAccount checking1 = new CheckingAccount(1213, 2000);
-		savings1.setBalance(savings1.withdraw(1100));
-		checking1.setBalance(checking1.withdraw(2200));
+		savings1.withdraw(1100);
+		checking1.withdraw(2200);
 		System.out.println(savings1.toString());
 		System.out.println(checking1.toString());
 	}
