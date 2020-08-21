@@ -60,12 +60,13 @@ class SavingsAccount extends Account {
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance;
 	}
-	public boolean canWithdraw(double withdraw) {
+	public double withdraw(double withdraw) {
 		if ((balance - withdraw) >= 0) {
-			return true;
+			return balance - withdraw;
 		}
 		else {
-			return false;
+			System.out.println("Can't withdraw that much");
+			return balance;
 		}
 	}
 }
@@ -84,12 +85,13 @@ class CheckingAccount extends Account {
 	public String toString() {
 		return "Account Id: " + id + " Balance = " + balance + " Overdraft Limit = " + overdraftLimit;
 	}
-	public boolean canWithdraw(double withdraw) {
+	public double withdraw(double withdraw) {
 		if ((balance - withdraw) >= overdraftLimit) {
-			return true;
+			return balance - withdraw;
 		}
 		else {
-			return false;
+			System.out.println("Can't withdraw that much");
+			return balance;
 		}
 	}
 }
@@ -98,6 +100,8 @@ class testAccount {
 	public static void main(String[] args) {
 		SavingsAccount savings1 = new SavingsAccount(1212, 1000);
 		CheckingAccount checking1 = new CheckingAccount(1213, 2000);
+		savings1.setBalance(savings1.withdraw(1100));
+		checking1.setBalance(checking1.withdraw(2200));
 		System.out.println(savings1.toString());
 		System.out.println(checking1.toString());
 	}
