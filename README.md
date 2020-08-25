@@ -1,2 +1,2 @@
 # CSCI 1110 OOP
-This repository is for my object oreiented programming class coursework
+This repository is for my object oriented programming class coursework
