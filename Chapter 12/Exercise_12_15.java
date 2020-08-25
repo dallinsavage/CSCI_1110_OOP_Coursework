@@ -14,13 +14,14 @@ public class Exercise_12_15 {
 		// TODO Auto-generated method stub
 		File file = new File("Exercise12_15.txt");
 		if (!file.exists()) {
-		}
 		PrintWriter output = new PrintWriter(file);
 		for (int i = 0; i < 100; i++) {
 			int num = (int)(Math.random() * 10);
 			output.print(num + " ");
 		}
 		output.close();
+		}
+		else {
 		Scanner  read = new Scanner(file);
 		int i = 0;
 		int array[] = new int[100];
@@ -32,6 +33,7 @@ public class Exercise_12_15 {
 		Arrays.sort(array);
 		for ( int x = 0; x < array.length; x++) {
 			System.out.println(array[x]);
+		}
 		}
 	}
 
