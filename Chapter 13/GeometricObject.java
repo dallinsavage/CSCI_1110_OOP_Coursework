@@ -32,8 +32,11 @@ public abstract class GeometricObject {
 	public abstract double getArea();
 	public abstract double getPerimeter();
 }
+	interface Colorable {
+		public abstract void howToColor();
+	}
 
-	class Triangle extends GeometricObject {
+	class Triangle extends GeometricObject implements Colorable {
 			private double side1;
 			private double side2;
 			private double side3;
@@ -68,26 +71,41 @@ public abstract class GeometricObject {
 				double area = Math.sqrt(preArea);
 				return area;
 			}
+			public void howToColor() {
+				System.out.println("Color all three sides");
+			}
 		}
 
 class TestTriangle {		
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		System.out.println("Is the triangle filled, true of false");
-		boolean filled = input.nextBoolean();
-		System.out.println("Enter triangel color");
-		String color = input.next();
-		System.out.println("Enter side1");
-		double side1 = input.nextDouble();
-		System.out.println("Enter side2");
-		double side2 = input.nextDouble();
-		System.out.println("Enter side3");
-		double side3 = input.nextDouble();
-		Triangle tri1 = new Triangle(color, filled, side1, side2, side3);
-		System.out.println("Area = " + tri1.getArea());
-		System.out.println("Perimeter = " + tri1.getPerimeter());
-		System.out.println("Color = " + tri1.getColor());
-		System.out.println("Triangle is Filled = " + tri1.isFilled());
-		System.out.println("Date Created = " + tri1.getDateCreated());
+		GeometricObject[] geoArray = new GeometricObject[5];
+		geoArray[0] = new Triangle(3, 4, 5);
+		geoArray[1] = new Triangle(7, 10, 5);
+		geoArray[2] = new Triangle(4, 6, 9);
+		geoArray[3] = new Triangle(10, 10, 15);
+		geoArray[4] = new Triangle(13, 19, 28);
+		for (int i = 0; i < geoArray.length; i++) {
+			System.out.println("Triangle " + i + " area = " + geoArray[i].getArea());
+			((Colorable) geoArray[i]).howToColor();
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
