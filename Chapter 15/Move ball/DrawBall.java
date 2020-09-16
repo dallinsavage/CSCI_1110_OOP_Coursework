@@ -1,8 +1,11 @@
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class DrawBall extends Application {
@@ -17,6 +20,21 @@ public class DrawBall extends Application {
 		Button upButton = new Button("Up");
 		Button downButton = new Button("Down");
 		hBox.getChildren().addAll(leftButton, rightButton, upButton, downButton);
+		ball.addListener(ov -> {
+				if (ball.getX() == 0) {
+					ball.moveRight();
+				}
+				else if (ball.getX() == 250) {
+					ball.moveLeft();
+				}
+				else if (ball.getY() == 0) {
+					ball.moveDown();
+				}
+				else if (ball.getY() == 250) {
+					ball.moveUp();
+				}
+		});
+		
 		leftButton.setOnAction(e -> {
 			ball.moveLeft();
 		});
@@ -29,6 +47,16 @@ public class DrawBall extends Application {
 		downButton.setOnAction(e -> {
 			ball.moveDown();
 		});
+		
+		ball.setOnKeyPressed(e -> {
+			switch (e.getCode()) {
+			case LEFT: ball.moveLeft(); break;
+			case RIGHT: ball.moveRight(); break;
+			case UP: ball.moveUp(); break;
+			case DOWN: ball.moveDown(); break;
+			default:
+			}
+		});
 		BorderPane pane = new BorderPane();
 		pane.setCenter(ball);
 		pane.setBottom(hBox);
@@ -37,6 +65,7 @@ public class DrawBall extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
+		ball.requestFocus();
 		
 	}
     public static void main(String[] args) {
