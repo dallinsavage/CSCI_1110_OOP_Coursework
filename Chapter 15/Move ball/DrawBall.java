@@ -20,7 +20,10 @@ public class DrawBall extends Application {
 		Button upButton = new Button("Up");
 		Button downButton = new Button("Down");
 		hBox.getChildren().addAll(leftButton, rightButton, upButton, downButton);
-		
+		leftButton.setFocusTraversable(false);
+		rightButton.setFocusTraversable(false);
+		upButton.setFocusTraversable(false);
+		downButton.setFocusTraversable(false);
 		leftButton.setOnAction(e -> {
 			ball.moveLeft();
 		});
