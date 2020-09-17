@@ -1,11 +1,11 @@
+/* Dallin Savage
+ * 9/17/20
+ */
 import javafx.application.Application;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class DrawBall extends Application {
@@ -13,27 +13,13 @@ public class DrawBall extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		Ball ball = new Ball(100, 100, 20);
+		Ball ball = new Ball(125, 125, 20);
 		HBox hBox = new HBox(15);
 		Button leftButton = new Button("Left");
 		Button rightButton = new Button("Right");
 		Button upButton = new Button("Up");
 		Button downButton = new Button("Down");
 		hBox.getChildren().addAll(leftButton, rightButton, upButton, downButton);
-		ball.addListener(ov -> {
-				if (ball.getX() == 0) {
-					ball.moveRight();
-				}
-				else if (ball.getX() == 250) {
-					ball.moveLeft();
-				}
-				else if (ball.getY() == 0) {
-					ball.moveDown();
-				}
-				else if (ball.getY() == 250) {
-					ball.moveUp();
-				}
-		});
 		
 		leftButton.setOnAction(e -> {
 			ball.moveLeft();
