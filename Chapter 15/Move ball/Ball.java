@@ -1,12 +1,11 @@
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+/* Dallin Savage
+ * 9/17/20
+ */
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Ball extends Pane implements Observable {
+public class Ball extends Pane {
 	private double x;
 	private double y;
 	private double radius;
@@ -25,20 +24,28 @@ public class Ball extends Pane implements Observable {
 		return y;
 	}
     public void moveLeft() {
+    	if (x >= 0 + radius) {
     	x = x - 10;
     	drawBall();
+    	}
     }
     public void moveRight() {
+    	if (x <= 250 - radius) {
     	x = x + 10;
     	drawBall();
+    	}
     }
     public void moveUp() {
+    	if (y >= 0 + radius) {
     	y = y - 10;
     	drawBall();
+    	}
     }
     public void moveDown() {
-    	y = y + 10;
-    	drawBall();
+    	if (y <= 250 - radius) {
+    		y = y + 10;
+    		drawBall();
+    	}
     }
 	public void drawBall() {
 	getChildren().clear();
@@ -46,15 +53,5 @@ public class Ball extends Pane implements Observable {
 	ball.setFill(Color.WHITE);
 	ball.setStroke(Color.BLACK);
 	getChildren().add(ball);
-	}
-	@Override
-	public void addListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void removeListener(InvalidationListener listener) {
-		// TODO Auto-generated method stub
-		
 	}
 }
