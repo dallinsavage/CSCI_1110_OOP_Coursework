@@ -23,7 +23,7 @@ public class Animation extends Application {
 		Rectangle rectangle = new Rectangle(250, 250, 20, 40);
 		rectangle.setFill(Color.BLUE);
 		rectangle.setStroke(Color.BLACK);
-		pane.getChildren().addAll(rectangle, pentagon);
+		pane.getChildren().addAll(pentagon, rectangle);
 		
 		PathTransition pt = new PathTransition();
 		pt.setDuration(Duration.seconds(5.0));
