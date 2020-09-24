@@ -2,9 +2,11 @@
  * 9/23/20
  */
 
-
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -29,21 +31,29 @@ public class Count_down extends Application{
 		MediaPlayer sound = new MediaPlayer(media);
 		TextField text = new TextField();
 		Timeline animation = new Timeline();
+		EventHandler<ActionEvent> eventHandler = e -> {
+			text.setText(countDown(text.getText()));
+			if (text.getText().equals("0")) {
+				animation.stop();
+				sound.setCycleCount(Timeline.INDEFINITE);
+				sound.play();
+			}
+		};
+		animation.getKeyFrames().add(new KeyFrame(Duration.millis(1000), eventHandler));
+		animation.setCycleCount(Timeline.INDEFINITE);
+		text.setOnAction(e -> {
+				animation.play();
+				if (text.getText().equals("0")) {
+					animation.stop();
+				sound.setCycleCount(Timeline.INDEFINITE);
+				sound.play();
+				}
+		});
+		
 		Pane pane = new Pane();
 		pane.getChildren().add(text);
 		text.setAlignment(Pos.CENTER);
-		text.setOnKeyPressed(e -> {
-			if (e.getCode().equals(KeyCode.ENTER)) {
-				while (!text.getText().equals("0")) {
-						text.setText(countDown(text.getText()));
-						animation.play();
-				}
-				sound.play();
-			}
-		});
-		
-		
-		Scene scene = new Scene(pane, 200, 50);
+		Scene scene = new Scene(pane);
 		primaryStage.setTitle("Exercise 16-21");
 		primaryStage.setScene(scene);
 		primaryStage.show();
