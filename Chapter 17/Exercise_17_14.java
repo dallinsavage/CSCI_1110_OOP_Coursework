@@ -18,8 +18,8 @@ public class Exercise_17_14 {
 		DataOutputStream output = new DataOutputStream(new FileOutputStream(file));
 		try {
 			while (true) {
-				byte newOutput = (byte) (input.readByte() + 5);
-				output.write(newOutput);
+				byte newOutput = input.readByte();
+				output.write(newOutput + 5);
 			}
 		}
 			catch (EOFException ex) {
