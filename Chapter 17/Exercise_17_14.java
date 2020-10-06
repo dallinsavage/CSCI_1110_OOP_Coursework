@@ -1,3 +1,8 @@
+/* Dallin Savage
+ * 10/6/20
+ * encrypt a file
+ */
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
