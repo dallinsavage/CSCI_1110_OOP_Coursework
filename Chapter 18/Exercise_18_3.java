@@ -1,3 +1,8 @@
+/* Dallin Savage
+ * 10/7/20
+ * recursive greatest common divisor
+ */
+
 import java.util.Scanner;
 
 public class Exercise_18_3 {
