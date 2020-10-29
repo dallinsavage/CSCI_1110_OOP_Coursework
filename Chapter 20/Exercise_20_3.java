@@ -1,7 +1,10 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
-public class Exercise_20_3 {  public static void main(String[] args) {
+public class Exercise_20_3 {  
+	public static void main(String[] args) {
 	ArrayList capitalList = new ArrayList();
 	String[][] stateCapital = {
 			{"Alabama", "Montgomery"},
@@ -57,17 +60,30 @@ public class Exercise_20_3 {  public static void main(String[] args) {
 			};
 	Scanner input = new Scanner(System.in);
     int correctCount = 0;
-    for (int i = 0; i < stateCapital.length; i++) {
+    for (int x = 0; x < stateCapital.length; x++) {
+    	capitalList.add(stateCapital[x][0]);
+    }
+    Collections.shuffle(capitalList);
+    for (int i = 0; i < capitalList.size(); i++) {
     	// Prompt the user with a question
-    	System.out.print("What is the capital of " + stateCapital[i][0] + "? ");
+    	System.out.print("What is the capital of " + capitalList.get(i) + "? ");
     	String capital = input.nextLine().trim().toLowerCase();
-    	if (capital.toLowerCase().equals(stateCapital[i][1].toLowerCase())) {
+    	if (capital.toLowerCase().equals(getAnswer(capitalList.get(i), stateCapital).toLowerCase())) {
     		System.out.println("Your answer is correct");
     		correctCount++;
     		}
     	else 
-    		System.out.println("The correct answer should be " + stateCapital[i][1]);
+    		System.out.println("The correct answer should be " + getAnswer(capitalList.get(i), stateCapital));
     	}
     System.out.println("The correct count is " + correctCount);
     }
+	public static String getAnswer(Object object, String[][] stateCapital) {
+		String answer = "no";
+		for (int i = 0; i < stateCapital.length; i++) {
+			if (object.equals(stateCapital[i][0])) {
+				answer = stateCapital[i][1].toString();
+			}
+		}
+		return answer;
+	}
 }
