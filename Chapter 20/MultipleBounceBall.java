@@ -1,8 +1,4 @@
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -73,8 +69,16 @@ public void add() {
 	}    
 public void subtract() {      
 	if (getChildren().size() > 0) {
-		Collections.sort((List) getChildren());
-		getChildren().remove(getChildren().size() - 1);   
+		ArrayList list = new ArrayList();
+		list.addAll(getChildren());
+		Ball currentBiggest = new Ball(0, 0, 0, Color.RED);
+		for (int i = 0; i < list.size(); i++) {
+			if (currentBiggest.getRadius() < ((Ball) list.get(i)).getRadius()) {
+				currentBiggest = (Ball) list.get(i);
+			}
+		}
+		
+		getChildren().remove(currentBiggest);   
 		}    
 	}    
 public void play() {      
@@ -124,4 +128,4 @@ protected void moveBall() {
   public static void main(String[] args) {    
 	  launch(args);  
 	  }
-  }
+}
