@@ -13,7 +13,7 @@ public class Exercise_20_21 {
   }
   public static <E> void selectionSort(E[] list, Comparator<? super E> comparator) {
 	  for (int i = 0; i < list.length - 1; i++) {
-		  E currentMin = list[0];
+		  E currentMin = list[i];
 		  int currentMinIndex = i;
 		  for (int j = i + 1; j < list.length; j++) {
 			  if (comparator.compare(currentMin, list[j]) > 0) {
