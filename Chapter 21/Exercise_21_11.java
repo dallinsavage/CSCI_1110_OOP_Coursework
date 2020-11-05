@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,17 +17,8 @@ import javafx.stage.Stage;
 public class Exercise_21_11 extends Application {
   private Map<String, Integer>[] mapForBoy = new HashMap[10];
   private Map<String, Integer>[] mapForGirl = new HashMap[10];
-  Scanner year01 = new Scanner("http://liveexample.pearsoncmg.com/data/babynamesranking2001.txt");
-  while (year01.hasNext()) {
-	  int rank = year01.nextInt();
-	  String boy = year01.next();
-	  int trash1 = year01.nextInt();
-	  String girl = year01.next();
-	  int trash2 = year01.nextInt();
-	  mapForBoy[0].put(boy, rank);
-	  mapForGirl[0].put(girl, rank);
-  }
-  private Button btFindRanking = new Button("Find Ranking");
+  
+  Button btFindRanking = new Button("FindRanking");
   private ComboBox<Integer> cboYear = new ComboBox<>();
   private ComboBox<String> cboGender = new ComboBox<>();
   private TextField tfName = new TextField();
@@ -45,6 +37,40 @@ public class Exercise_21_11 extends Application {
     gridPane.setAlignment(Pos.CENTER);
     gridPane.setHgap(5);
     gridPane.setVgap(5);
+	int x = 0;
+    for (int i = 2001; i < 2010; i++) {
+    	try {
+    		URL url = new URL("http://liveexample.pearsoncmg.com/data/babynamesranking" + i + ".txt");
+    		Scanner input = new Scanner(url.openStream());
+    		HashMap boyMap  = new HashMap();
+    		HashMap girlMap  = new HashMap();
+    			while (input.hasNext()) {
+    				int rank = input.nextInt();
+    				String boy = input.next().toLowerCase();
+    				int trash1 = input.nextInt();
+    				String girl = input.next().toLowerCase();
+    				int trash2 = input.nextInt();
+    				boyMap.put(boy, rank);
+    				girlMap.put(girl, rank);
+    			}
+    			mapForBoy[x] = boyMap;
+    			mapForGirl[x] = girlMap;
+    			x++;
+    		}
+    	catch(IOException ex) {
+    	}
+    }
+   
+	
+	btFindRanking.setOnAction(e -> {
+		int year = cboYear.getValue() - 2001;
+		if (cboGender.getValue() == "Male" ) {
+			System.out.println(mapForBoy[year].get(tfName.getText().toLowerCase()));
+		}
+		else {
+			System.out.println(mapForGirl[year].get(tfName.getText().toLowerCase()));
+		}
+    });
   
     BorderPane borderPane = new BorderPane();
     borderPane.setCenter(gridPane);
