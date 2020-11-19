@@ -47,7 +47,16 @@ public class Exercise_25_1 {
      * the longest path of the tree
      */
     public int height() {
-    	return 1;
+    	return height(root);
+    }
+    public int height(TreeNode node) {
+    	if (node == null) {
+    		return 0;
+    	}
+    	else if (height(node.left) > height(node.right)) {
+    		return 1 + height(node.left);
+    	}
+    	else return 1 + height(node.right);
     }
 
     /** 
@@ -62,17 +71,15 @@ public class Exercise_25_1 {
         new java.util.LinkedList<TreeNode<E>>();
       TreeNode<E> current = root;
       while (current != null) {
-    	  nodeList.add(current);
-    	  System.out.print(current + " ");
-    	  current = current.left;
-    	  nodeList.add(current);
-    	  System.out.print(current + " ");
-    	  current = nodeList.poll().right;
-    	  nodeList.add(current);
-    	  System.out.print(current + " ");
+    	  System.out.print(current.element + " ");
+    	  if (current.left != null) {
+    		  nodeList.add(current.left);
+    	  }
+    	  if (current.right != null) {
+    		  nodeList.add(current.right);
+    	  }
     	  current = nodeList.poll();
       }
-      
     }
 
     /** Returns true if the element is in the tree */
