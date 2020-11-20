@@ -18,24 +18,17 @@ public class Exercise_25_3 {
     BST<Integer> tree = new BST<Integer>();
     tree.insert(50);
     tree.insert(3);
-    tree.insert(10);
-    tree.insert(2);
+    tree.insert(12);
     tree.insert(6);
     tree.insert(5);
     tree.insert(7);
     tree.insert(17);
     tree.insert(11);
     tree.insert(31);
-    tree.insert(41);
     tree.insert(21);
     tree.insert(16);
-    tree.insert(51);
-    tree.insert(71);
-    tree.insert(70);
 
     tree.nonRecursiveInorder();
-    System.out.println("");
-    tree.inorder();
   }
 
   public static class BST<E extends Comparable<E>> extends AbstractTree<E> {
@@ -306,17 +299,20 @@ public class Exercise_25_3 {
     public void nonRecursiveInorder() {
       Stack<TreeNode<E>> list = new Stack<TreeNode<E>>();
       TreeNode<E> current = root;
-      list.add(root);
-      while (!list.isEmpty()) {
-    	  current = list.pop();
-    	  while (current.left != null) {
-    		  list.add(current.right);
+      boolean searching = true;
+      while (searching) {
+    	  while (current != null) {
     		  list.add(current);
     		  current = current.left;
     	  }
-    	  System.out.print(current.element + " ");
-    	  current = list.pop();
-    	  System.out.print(current.element + " ");
+    	  if (current == null && list.isEmpty() != true) {
+    		  current = list.pop();
+    		  System.out.print(current.element + " ");
+    		  current = current.right;
+    	  }
+    	  if (list.isEmpty()) {
+    		  break;
+    	  }
       }
     }
   }
