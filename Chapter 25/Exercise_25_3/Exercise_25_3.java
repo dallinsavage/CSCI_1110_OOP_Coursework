@@ -1,33 +1,17 @@
-
 import java.util.Scanner;
 import java.util.Stack;
 public class Exercise_25_3 {
   public static void main(String[] args) {
-//    BST<Integer> tree = new BST<Integer>();
-//    
-//    Scanner input = new Scanner(System.in);
-//    
-//    // Prompt the user to enter 10 integers and store them in the tree
-//    System.out.print("Enter 10 numbers: ");
-//    for (int i = 0; i < 10; i++) {
-//      tree.insert(input.nextInt());
-//    }
-   
-//    tree.inorder();
-//    
     BST<Integer> tree = new BST<Integer>();
-    tree.insert(50);
-    tree.insert(3);
-    tree.insert(12);
-    tree.insert(6);
-    tree.insert(5);
-    tree.insert(7);
-    tree.insert(17);
-    tree.insert(11);
-    tree.insert(31);
-    tree.insert(21);
-    tree.insert(16);
-
+    
+    Scanner input = new Scanner(System.in);
+    
+    // Prompt the user to enter 10 integers and store them in the tree
+    System.out.print("Enter 10 numbers: ");
+    for (int i = 0; i < 10; i++) {
+      tree.insert(input.nextInt());
+    }
+   
     tree.nonRecursiveInorder();
   }
 
@@ -310,8 +294,8 @@ public class Exercise_25_3 {
     		  System.out.print(current.element + " ");
     		  current = current.right;
     	  }
-    	  if (list.isEmpty()) {
-    		  break;
+    	  if (list.isEmpty() && current == null) {
+    		  searching = false;
     	  }
       }
     }
