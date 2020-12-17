@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class UnweightedGraph<V> implements Graph<V> {
@@ -96,20 +95,23 @@ public class UnweightedGraph<V> implements Graph<V> {
 		searchOrder.add(v);
 		isVisited[v] = true;
 		while (!stack.isEmpty()) {
-			int current = stack.peek();
-			if (neighbors.size() == 0) {
-				current = stack.pop();
+			int x = stack.peek();
+			if (neighbors.get(x).size() == 0) {
+				x = stack.pop();
 			}
 			else {
-				for (int i = 0; i < neighbors.get(current).size() - 1; i++) {
-					Edge currentEdge = neighbors.get(current).get(i);
-					int endVertex = currentEdge.u;
-					neighbors.get(current).remove(currentEdge);
-					if (isVisited[endVertex] == false) {
-						parent[endVertex] = current;
-						stack.add(endVertex);
-						isVisited[endVertex] = true;
-						searchOrder.add(endVertex);
+				for (int i = 0; i < neighbors.get(x).size() - 1;) {
+					Edge e = neighbors.get(x).get(i);
+					neighbors.get(x).remove(i);
+					if (isVisited[e.v] == false) {
+						parent[e.v] = x;
+						stack.add(e.v);
+						isVisited[e.v] = true;
+						searchOrder.add(e.v);
+						for (int y = 0; y < searchOrder.size(); y++) {
+							System.out.println(searchOrder.get(i));
+						}
+						break;
 					}
 				}
 			}
