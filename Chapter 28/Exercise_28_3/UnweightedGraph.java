@@ -92,24 +92,25 @@ public class UnweightedGraph<V> implements Graph<V> {
 		
 		// Insert your code here
 		stack.add(v);
-		searchOrder.add(v);
 		isVisited[v] = true;
+		searchOrder.add(v);
 		while (!stack.isEmpty()) {
 			int current = stack.peek();
-			if (neighbors.get(current).size() == 0) {
-				current = stack.pop();
-			}
-			else {
-				for (int i = 0; i < neighbors.get(current).size() - 1;) {
-					int endVertex = getNeighbors(current).get(i);
-					System.out.println(neighbors.get(current).remove(i).u);
-					if (isVisited[endVertex] == false) {
-						parent[endVertex] = current;
-						stack.add(endVertex);
-						isVisited[endVertex] = true;
-						searchOrder.add(endVertex);
-						break;
-					}
+			int counter = 0;
+			for (int i = neighbors.get(current).size() - 1; i >= 0; i--) {
+				int endVertex = getNeighbors(current).get(i);
+				if (isVisited[endVertex] == false) {
+					parent[endVertex] = current;
+					stack.add(endVertex);
+					isVisited[endVertex] = true;
+					searchOrder.add(endVertex);
+					break;
+				}
+				else {
+					counter++;
+				}
+				if (counter == neighbors.get(current).size()) {
+					stack.pop();
 				}
 			}
 		}
