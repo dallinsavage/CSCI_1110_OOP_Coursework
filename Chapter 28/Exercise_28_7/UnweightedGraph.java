@@ -4,10 +4,11 @@ public class UnweightedGraph<V> implements Graph<V> {
   protected List<V> vertices = new ArrayList<>(); // Store vertices
   protected List<List<Edge>> neighbors 
     = new ArrayList<>(); // Adjacency lists
+  List<List<Edge>> neighborsList = neighbors;
 
   public List<Integer> getACycle() {
 	  List<V> list = new ArrayList(getVertices());
-	  Boolean[] isVisited = new Boolean[vertices.size()];
+	  boolean[] isVisited = new boolean[vertices.size()];
 	  int[] parent = new int[vertices.size()];
 	  for (int i = 0; i < parent.length; i++) {
 	      parent[i] = -1;
@@ -20,37 +21,32 @@ public class UnweightedGraph<V> implements Graph<V> {
 		  list.remove(start);
 		  while (!stack.isEmpty()) {
 			  int current = stack.peek();
-			  if (neighbors.get(current).size() == 0) {
-				  System.out.println("yes");
-				  current = stack.pop();
-			  }
-			  else {
-				  for (int i = 0; i < neighbors.get(current).size() - 1; i++) {
-					  Edge edge = neighbors.get(current).get(i);
-					  if (!isVisited[edge.v]) {
-						  parent[edge.v] = current;
-						  stack.add(edge.v);
-						  isVisited[edge.v] = true;
-						  list.remove(edge.v);
-						  neighbors.get(current).remove(i);
+					for (int i = neighborsList.get(current).size() - 1; i >= 0; i--) {
+						Edge edge = neighborsList.get(current).get(i);
+						int endVertex = edge.v;
+					  if (!isVisited[endVertex]) {
+						  parent[endVertex] = current;
+						  stack.add(endVertex);
+						  isVisited[endVertex] = true;
+						  list.remove(endVertex);
+						  neighborsList.get(current).remove(edge.v);
 						  break;
 					  }
-					  else if (parent[current] != edge.v) {
+					  else if (parent[current] != endVertex) {
 						  List<Integer> intList =new ArrayList();
-						  intList.add(edge.v);
-						  while (current != edge.v && current != - 1) {
+						  intList.add(endVertex);
+						  while (current != endVertex && current != - 1) {
 							  intList.add(current);
 							  parent[current] = current;
 						  }
 						  return intList;
 					  }
 					  else {
-						  neighbors.get(current).remove(i);
+						  neighborsList.get(current).remove(i);
 					  }
 				  }
 			  }
 		  }
-	  }
 	  return new ArrayList();
   }
   
