@@ -7,37 +7,41 @@ public class UnweightedGraph<V> implements Graph<V> {
   List<List<Edge>> neighborsList = neighbors;
 
   public List<Integer> getACycle() {
-	  List<V> list = new ArrayList(getVertices());
+	  List<V> list = new ArrayList<V>(getVertices());
 	  boolean[] isVisited = new boolean[vertices.size()];
 	  int[] parent = new int[vertices.size()];
 	  for (int i = 0; i < parent.length; i++) {
 	      parent[i] = -1;
 	  }
-	  while (list.size() > 0) {
+	  while (!list.isEmpty()) {
 		  int start = getIndex(list.get(0));
-		  Stack<Integer> stack = new Stack();
+		  Stack<Integer> stack = new Stack<Integer>();
 		  stack.add(start);
 		  isVisited[start] = true;
 		  list.remove(start);
 		  while (!stack.isEmpty()) {
 			  int current = stack.peek();
-					for (int i = neighborsList.get(current).size() - 1; i >= 0; i--) {
+			  if (neighborsList.get(current).size() == 0) {
+				  current = stack.pop();
+			  }
+			  else {
+				  for (int i = 0; i < neighborsList.get(current).size(); i++) {
 						Edge edge = neighborsList.get(current).get(i);
 						int endVertex = edge.v;
 					  if (!isVisited[endVertex]) {
 						  parent[endVertex] = current;
 						  stack.add(endVertex);
 						  isVisited[endVertex] = true;
-						  list.remove(endVertex);
-						  neighborsList.get(current).remove(edge.v);
+						  list.remove(getVertex(endVertex));
+						  neighborsList.get(current).remove(i);
 						  break;
 					  }
 					  else if (parent[current] != endVertex) {
-						  List<Integer> intList =new ArrayList();
+						  List<Integer> intList = new ArrayList<Integer>();
 						  intList.add(endVertex);
 						  while (current != endVertex && current != - 1) {
 							  intList.add(current);
-							  parent[current] = current;
+							  current = parent[current];
 						  }
 						  return intList;
 					  }
@@ -47,7 +51,8 @@ public class UnweightedGraph<V> implements Graph<V> {
 				  }
 			  }
 		  }
-	  return new ArrayList();
+	  }
+	  return new ArrayList<Integer>();
   }
   
   /** Construct an empty graph */
