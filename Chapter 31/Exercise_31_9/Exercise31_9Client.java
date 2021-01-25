@@ -37,26 +37,34 @@ public class Exercise31_9Client extends Application {
     primaryStage.setTitle("Exercise31_09Client"); // Set the stage title
     primaryStage.setScene(scene); // Place the scene in the stage
     primaryStage.show(); // Display the stage
+    
+    new Thread(() -> {
+        try {
+        	Socket socket = new Socket("localhost", 8000);
+        	fromServer = new DataInputStream(socket.getInputStream());
+        	toServer = new DataOutputStream(socket.getOutputStream());
+        	taClient.setOnKeyPressed(e -> {
+        		switch (e.getCode()) {
+        		case ENTER: taServer.appendText("C: " + taClient.getText().trim() + '\n');
+    				try {
+    					toServer.writeChars("C: " + taClient.getText().trim() + '\n');
+    					taClient.clear(); break;
+    				} catch (IOException ex) {
+    					ex.printStackTrace();
+    				}
+        		}
+        	});
+        	while(true) {
 
-    try {
-    	Socket socket = new Socket("localhost", 8000);
-    	fromServer = new DataInputStream(socket.getInputStream());
-    	toServer = new DataOutputStream(socket.getOutputStream());
-    	taClient.setOnKeyPressed(e -> {
-    		switch (e.getCode()) {
-    		case ENTER: taServer.appendText("C: " + taClient.getText().trim() + '\n');
-				try {
-					toServer.writeChars(taClient.getText().trim());
-					taClient.clear(); break;
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-    		}
-    	});
-    }
-    catch (IOException ex) {
-    	ex.printStackTrace();
-    }
+        		taServer.appendText(fromServer.readLine() + '\n');
+
+        	}
+        }
+        catch (IOException ex) {
+        	ex.printStackTrace();
+        }
+    }).start();
+
   }
 
   /**
