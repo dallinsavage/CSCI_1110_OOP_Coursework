@@ -18,7 +18,7 @@ public class Exercise31_9Server extends Application {
   public void start(Stage primaryStage) {
     taServer.setWrapText(true);
     taClient.setWrapText(true);
-    //taClient.setDisable(true);
+    taServer.setEditable(false);
 
     BorderPane pane1 = new BorderPane();
     pane1.setTop(new Label("History"));
