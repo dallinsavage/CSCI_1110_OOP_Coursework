@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.net.*;
 import javafx.application.Application;
@@ -46,13 +47,16 @@ public class Exercise31_9Server extends Application {
         		switch (e.getCode()) {
         		case ENTER: taServer.appendText("S: " + taClient.getText().trim() + '\n');
 					try {
-						outputToClient.writeChars(taClient.getText().trim());
+						outputToClient.writeChars("S: " + taClient.getText().trim() + '\n');
 						taClient.clear(); break;
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
         		}
         	});
+    		while(true) {
+        		taServer.appendText(inputFromClient.readLine() + '\n');
+        	}
     	}
     	catch(IOException ex) {
     		ex.printStackTrace();
